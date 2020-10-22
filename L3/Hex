@@ -1,0 +1,59 @@
+Exercise 6: Explore disassembly for the new instructions.
+1. 44880000 
+2. 46800060
+3. 460208c2
+4. 3c041001
+5. 44042000
+6. 0000000c
+
+44880000 => 0100 0100 1000 1000 0000 0000 0000 0000
+Step 1: First 6 bits opcode : 010001 => 11hex or 17 decimal. So, from MIPS Green sheet, we can find that the register format is FI or FR. 
+
+Step 2: For both register formats next 5 bits indicate FMT. 
+        00100 => 4hex (Not found in MIPS green sheet). 
+
+Step 3: Go to page A-50 (Hennsey and Patterson).
+        11hex => z=1, and z=1 => mtc1. 
+        
+Step 4: Find the format of mtc1 [on page A-72].
+        mtc1 rt,fs
+
+Step 5: 5 bits for rt and fs each. 
+        rt => 01000=> 8=> $t0,  fs => 00000=> $f0. 
+
+Step 6: Hence, instruction is mtc1 $t0,$f0
+        
+
+
+46800060 => 010001 10100 00000 00000 00001 100000
+
+Step 1: First 6 bits opcode : 100011=> 11hex or 17 decimal. So, from MIPS Green sheet, we can find that the register format is FI or FR. 
+
+Step 2: For both register formats next 5 bits indicate FMT.
+        10100 => 14hex or 20 decimal. (Not found in MIPS green sheet)
+
+Step 3: Go to page A-50 (Hennsey and Patterson).
+        14hex or 20 decimal for FMT and z=1.
+
+Step 4: Decode funct value (last 6 bits).
+        100000 => 20hex or 32 => cvt.s.f
+
+Step 5: Find the format of cvt.s.f [on page A-74].
+        Instruction is cvt.s.w 
+        fs=> 00000 => 0, fd=>00001=>1
+
+Step 6: Hence, instruction is cvt.s.w $f1,$f0
+
+
+460208c2 => 010001 10000 00010 00001 00011 000010
+
+Step 1: 010001 => First 6 bits opcode : 100011=> 11hex or 17 decimal. So, from MIPS Green sheet, we can find that the register format is FI or FR.
+
+Step 2: For both register formats next 5 bits indicate FMT. 
+        10100 => 10hex or 16 decimal.
+         From green sheet Opcode/FMT = 11hex/10hex => FR format.
+Step 3: So, Next 15 bits: ft(5 bits) = 00010 = 2, fs(5 bits) = 00001 =1, and fd (5bits)=00011=3.
+        $f2,$f1,$f3.
+Step 4: Last 6 bits funct = 000010 = 2hex => mul.s [Opcode/FMT/Funct = 11hex/10hex/2hex]
+Step 5: Hence, instruction is mul.s $f3,$f1,$f2
+
