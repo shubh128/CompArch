@@ -1,0 +1,11 @@
+Pseudoinstructions used in Ex1
+li
+
+Pseudoinstructions used in Ex2
+li
+la
+
+Pseudoinstructions used in Ex3
+li
+la
+move
